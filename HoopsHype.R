@@ -32,8 +32,7 @@ for (link in bball_ref_vec){
     dplyr::mutate(Year = year_count)
   bball_ref_df <- dplyr::bind_rows(bball_ref_df, final_table)
   year_count <- year_count + 1
-  
-  
+  bball_df <- bball_ref_df[!duplicated(bball_ref_df$Player), ]
 }
 
 
