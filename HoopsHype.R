@@ -16,7 +16,7 @@ for (year in 13:22){
     as.data.frame()
   names(hoops_yearly_table)[1] <- "Rank"
   names(hoops_yearly_table)[3] <- "Rating"
-  hoops_df <- dplyr::bind_rows(hoops_df, hoops_yearly_table)
+  # hoops_df <- dplyr::bind_rows(hoops_df, hoops_yearly_table)
   bball_html <- read_html(bball_ref_vec[count])
   ref_table_class <- bball_html %>%
     rvest::html_nodes("#div_advanced_stats")
@@ -33,7 +33,7 @@ for (year in 13:22){
   bball_df <- ref_table[!duplicated(ref_table$Player), ]
   count <- count + 1
   restricted_mins_df <- filter(bball_df, MP > 750)
-  merged_yearly_df <- dplyr::inner_join(hoops_df, restricted_mins_df, by = 'Player') %>%
+  merged_yearly_df <- dplyr::inner_join(hoops_yearly_table, restricted_mins_df, by = 'Player') %>%
     dplyr::mutate(Year = year)
   merged_total_df <- dplyr::bind_rows(merged_total_df, merged_yearly_df)
   
